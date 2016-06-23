@@ -2,10 +2,9 @@
 # -*- coding:utf-8 -*-
 
 import numpy as np
-
-
-def sigmoid(z):
-    return 1.0 / (1.0 + np.exp(np.where(z < -709, 709, -z)))
+import sys, os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../tools')
+from unique_math_tools import sigmoid
 
 
 class LogisticRegression:

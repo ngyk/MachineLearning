@@ -52,12 +52,12 @@ class LogisticRegression:
 
     def newton_method(self):
         predicted_probabilities = self.predict_probability(self.x_tr)
+        self.train_errors.append(np.mean(np.abs(self.teach_labels - predicted_probabilities)))
         R = np.diag(predicted_probabilities * (1 - predicted_probabilities))
         phi_vectors = self.phi(self.x_tr)
         #calculate Hessian
         H = np.dot(phi_vectors.T, np.dot(R, phi_vectors))
         w_vector_new = self.w_vector - np.dot(np.linalg.inv(H), np.dot(phi_vectors.T, (predicted_probabilities - self.teach_labels)))
-        self.train_errors.append(np.mean(np.abs(self.teach_labels - self.predict_probability(self.x_vectors))))
         diff = np.linalg.norm(w_vector_new - self.w_vector) / np.linalg.norm(self.w_vector)
         self.w_vector = w_vector_new
         return diff
